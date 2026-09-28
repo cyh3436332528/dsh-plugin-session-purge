@@ -1,0 +1,5 @@
+# dsh-plugin-session-purge bundle layer: one host row.
+# The browser half ships through exports["./client"] and the `dsh.client` field.
+- insert:
+    - id: session-purge
+      name: 'dsh-plugin-session-purge'

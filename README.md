@@ -82,12 +82,25 @@ DSH（DeepSeek Harness）自带的「归档」只是把会话从列表里**隐�
 | Client 平台 | `web` |
 | 依赖的 DSH 能力 | `webServer`、`slots`（均为主机 / 客户端内置服务，非外部依赖） |
 | 运行时依赖 | **无**（`package.json` 未声明任何 `dependencies` / `peerDependencies`） |
+| 官方 `@deepseek-ai/*` 依赖 | **无**（`lib/client.js` 通过 `require()` 取 `react` 与 `@deepseek-ai/dsh-client-ui-primitives`，由 DSH 宿主自身提供，故不写入 `package.json`） |
 | License | MIT |
 
-> **TODO**：`package.json` 目前**没有** `dsh.compatibility` 字段来声明支持的 DSH 版本区间。
-> 本插件是在 **DSH Desktop `0.1.x` 系列**上开发并实测的（活动 profile 为 `desktop`，`patchReload: live`）。
-> 上架前建议补上 `dsh.compatibility.dsh` 范围声明，并把实测过的 DSH 版本逐个列进 `dshReleases`。
+**实测环境**（开发与验证均在此环境完成）：
+
+| 项目 | 值 |
+|---|---|
+| 宿主程序 | **DSH Desktop 2.0.15** |
+| 活动 profile | `desktop`（`patchReload: live`） |
+| 操作系统 | Windows 11（26100） |
+| 安装方式 | `link:` 本地链接安装 |
+
+> **兼容性声明的现状（如实说明）**：`package.json` 目前**没有** `dsh.compatibility` 字段，
+> 因此**没有以机器可读的形式声明**支持的 DSH 版本区间。上表是**人工实测**的结论，范围仅限 DSH Desktop 2.0.15。
+>
+> 需要补上时，字段形如 `dsh.compatibility.{dsh, dshReleases}`，
+> 取值请以你所处 DSH 版本里 `@deepseek-ai/dsh-*` 包的实际声明为准，
 > 详见 [CONTRIBUTING.md](./CONTRIBUTING.md#兼容性声明)。
+> **在 macOS / Linux 上尚未验证。**
 
 ## 安装
 
@@ -109,15 +122,23 @@ git clone https://github.com/cyh3436332528/dsh-plugin-session-purge.git
 cd dsh-plugin-session-purge
 
 # 2. 安装到目标 profile（此处以 desktop 为例）
-dsh plugin --profile desktop add "$(pwd)/plugin"
+dsh plugin --profile desktop add ./plugin
 
 # 3. 重启 DSH
 ```
 
-> 本插件当前以 `link:` 方式安装在本机
-> （`"dsh-plugin-session-purge": "link:C:/DSHWorkspace/projects/dsh-session-purge/plugin"`），
-> 尚未发布到 npm，因此**没有** `dsh plugin --profile desktop add dsh-plugin-session-purge` 这种按包名安装的方式。
-> 发布 npm 后请把上面的命令替换为包名版本。
+也可以让 DSH 直接从 GitHub 安装（免克隆）：
+
+```bash
+dsh plugin --profile desktop add github:cyh3436332528/dsh-plugin-session-purge
+```
+
+> 本插件**尚未发布到 npm**，因此没有 `dsh plugin --profile desktop add dsh-plugin-session-purge`
+> 这种按包名安装的方式。
+>
+> 仓库里的 `plugin/` 是**无构建步骤的纯 JavaScript**（无 TypeScript、无 `prepare` 脚本），
+> 所以从 git 源码安装**不需要** pnpm 的 `allowBuilds` 构建授权，安装后可直接加载。
+> 已在本机实测：仓库内文件与开发目录 `plugin/` 内容一致。
 
 ### 卸载
 
@@ -241,6 +262,28 @@ dsh plugin --profile desktop remove dsh-plugin-session-purge
 - **未做自动化测试。** 仓库内的 `_smoke.mjs` 是一个**只读**冒烟脚本，仅验证 `/list` 路由能返回数据。
   删除路径**没有**自动化测试覆盖。
 - **`Delete-all-archived` 是逐条串行执行的**，会话数量很大时会较慢。
+
+## 仓库结构
+
+```
+dsh-plugin-session-purge/
+├── plugin/                    ← 插件本体（可直接被 dsh plugin add 安装的包）
+│   ├── package.json           #   插件清单：dsh.bundle.patch + dsh.client
+│   ├── cordis.patch.yml       #   bundle 层：往 profile 里插入一条 host 记录
+│   ├── lib/
+│   │   ├── index.js           #   宿主半边：HTTP 路由 + 扫描 + 删除实现
+│   │   └── client.js          #   浏览器半边：设置页面板 + 导航图标
+│   └── _smoke.mjs             #   只读冒烟脚本（不触发删除）
+├── docs/
+│   ├── assets/                #   效果截图
+│   └── plugin-blurb.md        #   简介 / 关键词 / Topics / 徽章素材
+├── release/
+│   ├── v1.0.0-release-notes.md        # Release 说明、tag 方案、投稿文案
+│   └── awesome-dsh-plugin-entry.yml   # 插件市场收录用的条目文件
+└── .github/                   # Issue / PR 模板
+```
+
+两半的职责、HTTP 接口约定与开发注意事项见 [CONTRIBUTING.md](./CONTRIBUTING.md)。
 
 ## 参与贡献
 
