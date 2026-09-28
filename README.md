@@ -100,7 +100,7 @@ DSH（DeepSeek Harness）自带的「归档」只是把会话从列表里**隐�
 
 ```bash
 # 1. 克隆
-git clone https://github.com/<owner>/dsh-plugin-session-purge.git
+git clone https://github.com/cyh3436332528/dsh-plugin-session-purge.git
 cd dsh-plugin-session-purge
 
 # 2. 安装到目标 profile（此处以 desktop 为例）
@@ -109,7 +109,7 @@ dsh plugin --profile desktop add "$(pwd)"
 # 3. 重启 DSH
 ```
 
-> **TODO**：仓库地址 `<owner>` 待填。本插件当前以 `link:` 方式安装在本机
+> **TODO**：本插件当前以 `link:` 方式安装在本机
 > （`"dsh-plugin-session-purge": "link:C:/DSHWorkspace/projects/dsh-session-purge/plugin"`），
 > 尚未发布到 npm，因此**没有** `dsh plugin --profile desktop add dsh-plugin-session-purge` 这种按包名安装的方式。
 > 发布 npm 后请把上面的命令替换为包名版本。

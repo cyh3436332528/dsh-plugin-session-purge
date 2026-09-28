@@ -6,9 +6,7 @@
 
 请使用 GitHub 的私密渠道：
 
-👉 [提交安全公告](https://github.com/<owner>/dsh-session-purge/security/advisories/new)
-
-> **TODO**：`<owner>` 待替换为实际 GitHub 用户名 / 组织名。替换前本链接不可用。
+👉 [提交安全公告](https://github.com/cyh3436332528/dsh-session-purge/security/advisories/new)
 
 在公告中请包含：
 

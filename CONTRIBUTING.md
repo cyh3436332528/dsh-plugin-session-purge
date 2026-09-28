@@ -52,14 +52,12 @@
 
 ```bash
 # 1. 克隆
-git clone https://github.com/<owner>/dsh-plugin-session-purge.git
+git clone https://github.com/cyh3436332528/dsh-plugin-session-purge.git
 cd dsh-plugin-session-purge
 
 # 2. 以 link: 方式装进目标 profile（以 desktop 为例）
 dsh plugin --profile desktop add "$(pwd)"
 ```
-
-> **TODO**：`<owner>` 待填。
 
 开发时的热重载行为**两半不一样**，请注意：
 

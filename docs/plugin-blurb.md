@@ -76,10 +76,8 @@ dsh-plugin-session-purge —— DSH 会话管理插件。DSH 自带的归档只�
 > 收录格式参考 awesome-dsh-plugin：「`- [名称](链接) — 一句话描述`」
 
 ```
-- [dsh-plugin-session-purge](https://github.com/<owner>/dsh-plugin-session-purge) — 永久删除 DSH 会话（非归档），级联清理日志、投影缓存、工作区记账与子会话。
+- [dsh-plugin-session-purge](https://github.com/cyh3436332528/dsh-plugin-session-purge) — 永久删除 DSH 会话（非归档），级联清理日志、投影缓存、工作区记账与子会话。
 ```
-
-> **TODO**：`<owner>` 替换为实际 GitHub 用户名 / 组织名。
 
 ---
 
