@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: DSH 本体的问题
+    url: https://github.com/deepseek-ai/deepseek-harness/issues
+    about: 如果问题出在 DSH 自身（界面、会话机制、插件加载），请提到官方仓库，而不是本项目。
+  - name: 插件市场 / 目录索引的问题
+    url: https://github.com/awesome-dsh-plugin/awesome-dsh-plugin/issues
+    about: 如果问题与本插件在插件市场里的收录、分类或安装命令有关，请提到 awesome-dsh-plugin。
+  - name: 安全问题（请勿公开）
+    url: https://github.com/<owner>/dsh-session-purge/security/advisories/new
+    about: 涉及数据丢失、越权删除、凭据泄露等安全问题，请走私密渠道，不要开公开 Issue。

@@ -1,0 +1,101 @@
+name: Bug 报告
+description: 报告一个可复现的问题
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢反馈。请尽量把信息填全——**插件的行为高度依赖 DSH 版本与操作系统**，
+        缺了这两项基本无法定位问题。
+
+        > ⚠️ 如果你的问题是「删错了东西」或「数据丢了」，请**先停下手上的操作**，
+        > 不要重启 DSH，并在描述里明确写出来。
+
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: 提交前确认
+      options:
+        - label: 我已经搜索过现有 Issue，确认没有人报告过同样的问题
+          required: true
+        - label: 我已经读过 README 的「FAQ」与「已知限制」，我的问题不在其中
+          required: true
+
+  - type: input
+    id: plugin-version
+    attributes:
+      label: 插件版本
+      description: 见 `plugin/package.json` 的 `version`，或 Release 页面
+      placeholder: "1.0.0"
+    validations:
+      required: true
+
+  - type: input
+    id: dsh-version
+    attributes:
+      label: DSH 版本与形态
+      description: DSH 的版本号，以及你用的是 Web 还是 Desktop
+      placeholder: "例如 0.1.5-alpha.1 / Desktop"
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: 操作系统
+      placeholder: "例如 Windows 11 26100"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: entry
+    attributes:
+      label: 出问题的入口
+      options:
+        - 设置页 → 会话管理
+        - 对话头部按钮
+        - 插件安装 / 启用 / 卸载本身
+        - 其他（在描述里说明）
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: 问题描述
+      description: 发生了什么？你期望发生什么？
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 复现步骤
+      description: 请写清每一步，越具体越好
+      placeholder: |
+        1. 打开设置 → 会话管理
+        2. 找到标题为「...」的会话
+        3. 点删除 → 永久删除
+        4. 观察到 ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: 相关日志
+      description: |
+        DSH 的宿主日志中与 `session-purge` 相关的行（搜索关键词 `session-purge`）。
+        **请先删除日志里的会话正文、路径中的用户名、以及任何密钥。**
+      render: text
+    validations:
+      required: false
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: 补充信息
+      description: 截图、屏录、或任何你认为有用的上下文
+    validations:
+      required: false
